@@ -1,5 +1,10 @@
 package com.mycompany.app;
 
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 public class Book {
     private String title;
     private String author;
@@ -67,15 +72,16 @@ public class Book {
     }
 
     // Optional: Override toString() method for easy printing
-    //Doesnt return image
+    // Doesnt return image
     @Override
     public String toString() {
         return "Book{" +
                 "title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publicationYear=" + publicationYear +
-                ", progress=" + progress+
+                ", progress=" + progress +
                 ", isbn='" + isbn + '\'' +
                 '}';
     }
+
 }

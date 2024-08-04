@@ -44,6 +44,16 @@ public class Widgets {
         return label;
     }
 
+    public static void PrintBook(Book book) {
+        System.out.println(book.toString());
+    }
+
+    public static void PrintBooks(ArrayList<Book> books) {
+        for (int i = 0; i < books.size(); i++) {
+            PrintBook(books.get(i));
+        }
+    }
+
     public static void DisplayBook(JFrame f, Book book, int x, int y) {
         // String title = book.getTitle();
         // String author = book.getAuthor();
@@ -61,7 +71,24 @@ public class Widgets {
 
     public static void DisplayBooks(JFrame f, ArrayList<Book> books, int x, int y) {
         for (int i = 0; i < books.size(); i++) {
-            DisplayBook(f, books.get(i), x + (i*20), y + (i*10));
+            DisplayBook(f, books.get(i), x + (i * 20), y + (i * 10));
         }
+    }
+
+    // Checks if two books are equal i.e every field of the Book type is equal
+    // TODO make it variadic so it can check any number of books
+
+    public static boolean AreBooksEqual(Book book1, Book book2) {
+        return book1.equals(book2);
+    }
+
+    // Checks if the book exists within the ArrayList
+    public static boolean DoesBookAlreadyExist(Book book, ArrayList<Book> books) {
+        for (int i = 0; i < books.size(); i++) {
+            if (AreBooksEqual(book, books.get(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
