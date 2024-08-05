@@ -1,13 +1,14 @@
 package com.mycompany.app;
 
-import java.awt.Image;
-import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 public class Widgets {
     public static void InputBar(JFrame f, String labelText, JTextField inputField, int x, int y) {
@@ -44,5 +45,14 @@ public class Widgets {
 
         f.add(label);
         return label;
+    }
+
+    public static JPanel Rect(int x, int y, int width, int height, Color color, int stroke) {
+        JPanel rect = new JPanel();
+        rect.setPreferredSize(new Dimension(width, height));
+        rect.setBounds(x, y, width, height);
+        rect.setBorder(new LineBorder(color, stroke));
+        rect.setLayout(null);
+        return rect;
     }
 }

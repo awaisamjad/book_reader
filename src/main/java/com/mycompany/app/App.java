@@ -1,5 +1,9 @@
 package com.mycompany.app;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+
 // import java.util.ArrayList;
 
 // import javax.swing.JButton;
@@ -35,15 +39,15 @@ package com.mycompany.app;
 
 //         SearchBar(null, "Search collection");
 
-//         ArrayList<Book> books = new ArrayList<>();
+//         ArrayList<Book> books_total = new ArrayList<>();
 //         Book book1 = new Book("Way of Kings", "Brandon Sanderson", 2011, 0, 0, null);
 //         Book book2 = new Book("1Q84", "Haruki Murakami", 2011, 0, 0, null);
 //         Book book3 = new Book("East of Eden", "John Steinbeck", 2011, 0, 0, null);
 //         Book book4 = new Book("The picture of Dorian Gray", "Oscar Wilde", 2011, 0, 0, null);
-//         books.add(book1);
-//         books.add(book2);
-//         books.add(book3);
-//         books.add(book4);
+//         books_total.add(book1);
+//         books_total.add(book2);
+//         books_total.add(book3);
+//         books_total.add(book4);
 
 //         // InputBar("Enter book name");
 //         Widgets.InputBar(f, "Enter Book Name", book_name_input_field, 20, 300);
@@ -66,12 +70,12 @@ package com.mycompany.app;
 //             String book_name = book_name_input_field.getText();
 
 //             if (book_name != null) {
-//                 Widgets.PrintBooks(books);
+//                 Widgets.Printbooks_total(books_total);
 //             }
 //             // book_name_label.setText("Book Name: " + book_name);
-//             // books.add(book1);
-//             // Widgets.DisplayBooks(f, books, 10, 300);
-//             // Widgets.PrintBooks(books);
+//             // books_total.add(book1);
+//             // Widgets.Displaybooks_total(f, books_total, 10, 300);
+//             // Widgets.Printbooks_total(books_total);
 //         });
 
 //         f.setVisible(true);
@@ -101,20 +105,20 @@ package com.mycompany.app;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 // mvn exec:java -Dexec.mainClass="com.mycompany.app.App"
 
 public class App {
     private static JTextField book_name_input_field;
-    private static JLabel book_name_label;
 
     public static void main(String[] args) {
 
@@ -128,55 +132,68 @@ public class App {
         f.setSize(800, 600);
         f.setLayout(null);
 
-        // Initialize the input field
-        book_name_input_field = new JTextField();
-        book_name_input_field.setBounds(20, 300, 200, 30);
-        f.add(book_name_input_field);
+        // ~ Search Bar
+        JTextField search_bar = new JTextField();
+        search_bar.setBounds(20, 50, 300, 30);
+        JLabel search_bar_label = new JLabel("Search Collection");
+        search_bar_label.setBounds(20, 10, search_bar_label.getPreferredSize().width,
+                search_bar_label.getPreferredSize().height);
+        JButton search_button = new JButton("Search");
+        search_button.setBounds(340, 50, 90, 30);
+        f.add(search_bar);
+        f.add(search_bar_label);
+        f.add(search_button);
 
         // Initialize the button
-        JButton add_book_button = new JButton("Add a book");
-        add_book_button.setBounds(20, 200, 150, 30);
-        f.add(add_book_button);
+        JButton upload_button = new JButton("Upload");
+        upload_button.setBounds(20, 200, 150, 30);
+        f.add(upload_button);
 
-        // Initialize the label
-        book_name_label = new JLabel("Book Name:");
-        book_name_label.setBounds(20, 250, 400, 20);
-        f.add(book_name_label);
+        JPanel rect = Widgets.Rect(10, 10, 200, 200, Color.BLACK, 2);
+        // f.add(rect);
 
         // Initialize the book display (assuming BookDisplay is a custom component)
-        BookDisplay book_display = new BookDisplay();
-        book_display.setBounds(300, 30, 100, 180);
-        f.add(book_display);
+        // BookDisplay book_display = new BookDisplay();
+        // book_display.setBounds(300, 30, 100, 180);
+        // f.add(book_display);
 
-        ArrayList<Book> books = new ArrayList<>();
+        ArrayList<Book> books_total = new ArrayList<>();
         Book book1 = new Book("Way of Kings", "Brandon Sanderson", 2011, 0, 0, null);
         Book book2 = new Book("1Q84", "Haruki Murakami", 2011, 0, 0, null);
         Book book3 = new Book("East of Eden", "John Steinbeck", 2011, 0, 0, null);
         Book book4 = new Book("The picture of Dorian Gray", "Oscar Wilde", 2011, 0, 0, null);
-        books.add(book1);
-        books.add(book2);
-        books.add(book3);
-        books.add(book4);
+        books_total.add(book1);
+        books_total.add(book2);
+        books_total.add(book3);
+        books_total.add(book4);
 
-        // Add action listener to the button
-        add_book_button.addActionListener(e -> {
-            String book_name = book_name_input_field.getText();
+        upload_button.addActionListener(e -> {
 
-            Book book_temp = new Book(book_name, "Awais Amjad", 0, 0, 0, "is_ibn");
-            // TODO check here if the book already exists within books arraylist
-            if (book_name != null &&
-                    !book_name.isEmpty() &&
-                    (BookUtils.DoesBookAlreadyExist(book_temp, books) == false)
-                ) 
-            {
-                books.add(book_temp);
-                BookUtils.PrintBooks(books);
+            JFileChooser fileChooser = new JFileChooser();
+            int returnValue = fileChooser.showOpenDialog(null);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                try {
+                    java.awt.Desktop.getDesktop().open(selectedFile);
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }// <-- here
+            }
+
+        });
+
+        search_button.addActionListener(e -> {
+            String book_name = search_bar.getText();
+            Book book = new Book(book_name, "Haruki Murakami", 2011, 0, 0, null);
+            if (!book_name.isEmpty() && BookUtils.DoesBookAlreadyExist(book, books_total)) {
+                System.out.println("Found Book" + book.toString());
             }
         });
 
         BookUtils.DisplayBookCover(f, "src/main/resources/images/way_of_kings.jpg", 100, 100, 120, 180);
 
-        //! Keep this at the end
+        // ! Keep this at the end
         f.setVisible(true);
     }
 }

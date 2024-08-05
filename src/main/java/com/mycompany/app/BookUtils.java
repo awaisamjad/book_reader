@@ -73,10 +73,11 @@ public class BookUtils {
     }
 
     // Checks if the book exists within the ArrayList
+    //? When used for search it requires there to be exact accurate search. Not UX friendly
+    //TODO For search function use better search criteria
     public static boolean DoesBookAlreadyExist(Book book, ArrayList<Book> books) {
         for (int i = 0; i < books.size(); i++) {
             if (book.equals(books.get(i))) {
-                System.out.println("Book equals Book !!!!!!!!!!!!!!");
                 return true;
             }
         }
