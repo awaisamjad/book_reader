@@ -107,8 +107,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 // mvn exec:java -Dexec.mainClass="com.mycompany.app.App"
 
@@ -119,13 +119,13 @@ public class App {
     public static void main(String[] args) {
 
         try {
-            UIManager.setLookAndFeel(new FlatMacDarkLaf());
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
 
         JFrame f = new JFrame("Book Manager");
-        f.setSize(500, 500);
+        f.setSize(800, 600);
         f.setLayout(null);
 
         // Initialize the input field
@@ -166,14 +166,17 @@ public class App {
             // TODO check here if the book already exists within books arraylist
             if (book_name != null &&
                     !book_name.isEmpty() &&
-                    (Widgets.DoesBookAlreadyExist(book_temp, books) == false)
+                    (BookUtils.DoesBookAlreadyExist(book_temp, books) == false)
                 ) 
             {
                 books.add(book_temp);
-                Widgets.PrintBooks(books);
+                BookUtils.PrintBooks(books);
             }
         });
 
+        BookUtils.DisplayBookCover(f, "src/main/resources/images/way_of_kings.jpg", 100, 100, 120, 180);
+
+        //! Keep this at the end
         f.setVisible(true);
     }
 }

@@ -1,9 +1,6 @@
 package com.mycompany.app;
 
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.util.Objects;
 
 public class Book {
     private String title;
@@ -82,6 +79,38 @@ public class Book {
                 ", progress=" + progress +
                 ", isbn='" + isbn + '\'' +
                 '}';
+    }
+
+    // public boolean equals(Book book) {
+    //     if (this.title == book.getTitle() &&
+    //             this.author.equals(book.getAuthor()) &&
+    //             this.publicationYear == book.getPublicationYear() &&
+    //             this.progress == book.getProgress() &&
+    //             this.image == book.getImage() &&
+    //             this.isbn.equals(book.getIsbn())) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return publicationYear == book.publicationYear &&
+               progress == book.progress &&
+               image == book.image &&
+               Objects.equals(title, book.title) &&
+               Objects.equals(author, book.author) &&
+               Objects.equals(isbn, book.isbn);
+    }
+
+    // Override hashCode method
+    //? Recommended when overriding the 'equals'  method is used
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, publicationYear, progress, image, isbn);
     }
 
 }

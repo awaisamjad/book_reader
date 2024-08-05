@@ -1,7 +1,9 @@
 package com.mycompany.app;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,53 +44,5 @@ public class Widgets {
 
         f.add(label);
         return label;
-    }
-
-    public static void PrintBook(Book book) {
-        System.out.println(book.toString());
-    }
-
-    public static void PrintBooks(ArrayList<Book> books) {
-        for (int i = 0; i < books.size(); i++) {
-            PrintBook(books.get(i));
-        }
-    }
-
-    public static void DisplayBook(JFrame f, Book book, int x, int y) {
-        // String title = book.getTitle();
-        // String author = book.getAuthor();
-        // int publication_year = book.getPublicationYear();
-        // int progress = book.getProgress();
-        // long image = book.getImage();
-        // String isbn = book.getIsbn();
-        String book_string = book.toString();
-        JLabel book_label = new JLabel(book_string);
-        book_label.setBounds(x, y, 100, 400);
-        book_label.setLayout(null);
-        book_label.setVisible(true);
-        f.add(book_label);
-    }
-
-    public static void DisplayBooks(JFrame f, ArrayList<Book> books, int x, int y) {
-        for (int i = 0; i < books.size(); i++) {
-            DisplayBook(f, books.get(i), x + (i * 20), y + (i * 10));
-        }
-    }
-
-    // Checks if two books are equal i.e every field of the Book type is equal
-    // TODO make it variadic so it can check any number of books
-
-    public static boolean AreBooksEqual(Book book1, Book book2) {
-        return book1.equals(book2);
-    }
-
-    // Checks if the book exists within the ArrayList
-    public static boolean DoesBookAlreadyExist(Book book, ArrayList<Book> books) {
-        for (int i = 0; i < books.size(); i++) {
-            if (AreBooksEqual(book, books.get(i))) {
-                return true;
-            }
-        }
-        return false;
     }
 }
